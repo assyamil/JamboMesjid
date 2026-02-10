@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
 use PowerComponents\LivewirePowerGrid\Actions\Action;
 use App\Models\User;
