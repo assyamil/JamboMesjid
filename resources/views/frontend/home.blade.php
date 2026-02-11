@@ -25,8 +25,6 @@
             x-transition:leave-end="opacity-0 scale-95"
             class="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat flex items-center justify-center"
             style="background-image: url('{{ $imageUrl }}');">
-            <p class="text-white">{{ $imageUrl }}</p>
-
 
             <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
 
