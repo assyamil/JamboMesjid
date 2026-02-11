@@ -1,52 +1,46 @@
 <x-app-layout>
     {{-- Hero Slider Section --}}
-    <div class="relative w-full overflow-hidden h-screen"
+  <div class="relative w-full overflow-hidden h-screen"
     x-data="{ activeSlide: 0 }"
     x-init="setInterval(() => {
-        activeSlide = (activeSlide + 1) % {{ count($sliders) ?: 1 }};
+        activeSlide = (activeSlide + 1) % {{ isset($sliders) && $sliders->count() ? $sliders->count() : 1 }};
     }, 5000)">
 
-    @forelse ($sliders as $index => $slider)
+    @if(isset($sliders) && $sliders->count())
+        @foreach ($sliders as $index => $slider)
 
-        @php
-            $image = $slider->image;
+            @php
+                $image = $slider->image ?? '';
+                $imageUrl = filter_var($image, FILTER_VALIDATE_URL)
+                    ? $image
+                    : asset('storage/' . ltrim($image, '/'));
+            @endphp
 
-            if (filter_var($image, FILTER_VALIDATE_URL)) {
-                $imageUrl = $image;
-            } else {
-                $imageUrl = asset('storage/' . ltrim($image, '/'));
-            }
-        @endphp
+            <div x-show="activeSlide === {{ $index }}"
+                class="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat flex items-center justify-center"
+                style="background-image: url('{{ $imageUrl }}');">
 
-        <div x-show="activeSlide === {{ $index }}"
-            x-transition:enter="transition ease-out duration-1000"
-            x-transition:enter-start="opacity-0"
-            x-transition:enter-end="opacity-100"
-            x-transition:leave="transition ease-in duration-700"
-            x-transition:leave-start="opacity-100"
-            x-transition:leave-end="opacity-0"
-            class="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat flex items-center justify-center"
-            style="background-image: url('{{ $imageUrl }}');">
+                <div class="absolute inset-0 bg-black/60"></div>
 
-            <div class="absolute inset-0 bg-black/60"></div>
-
-            <div class="relative z-10 text-center px-4 max-w-2xl mx-auto">
-                <h1 class="text-4xl md:text-5xl font-extrabold text-white drop-shadow-lg mb-4">
-                    {{ $slider->title }}
-                </h1>
-                <p class="text-lg text-white/90 leading-relaxed">
-                    {{ $slider->description }}
-                </p>
+                <div class="relative z-10 text-center px-4 max-w-2xl mx-auto">
+                    <h1 class="text-4xl md:text-5xl font-extrabold text-white drop-shadow-lg mb-4">
+                        {{ $slider->title ?? '' }}
+                    </h1>
+                    <p class="text-lg text-white/90 leading-relaxed">
+                        {{ $slider->description ?? '' }}
+                    </p>
+                </div>
             </div>
-        </div>
 
-    @empty
+        @endforeach
+    @else
         <div class="relative w-full overflow-hidden h-screen flex items-center justify-center">
             <p class="text-gray-600 text-xl">Tidak ada slider aktif yang tersedia.</p>
         </div>
-    @endforelse
+    @endif
 
 </div>
+
 
 
     @empty
