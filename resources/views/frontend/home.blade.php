@@ -1,32 +1,34 @@
 <x-app-layout>
     {{-- Hero Slider Section --}}
     <div class="relative w-full overflow-hidden h-screen"
-    x-data="{ activeSlide: 0, slides: {{ $sliders->toJson() }} }"
-    x-init="if (slides.length > 1) {
-        setInterval(() => {
-            activeSlide = (activeSlide + 1) % slides.length;
-        }, 5000);
-    }">
+    x-data="{ activeSlide: 0 }"
+    x-init="setInterval(() => {
+        activeSlide = (activeSlide + 1) % {{ count($sliders) ?: 1 }};
+    }, 5000)">
 
     @forelse ($sliders as $index => $slider)
 
         @php
-            $imageUrl = \Illuminate\Support\Str::startsWith($slider->image, ['http://', 'https://'])
-                ? $slider->image
-                : asset('storage/' . $slider->image);
+            $image = $slider->image;
+
+            if (filter_var($image, FILTER_VALIDATE_URL)) {
+                $imageUrl = $image;
+            } else {
+                $imageUrl = asset('storage/' . ltrim($image, '/'));
+            }
         @endphp
 
         <div x-show="activeSlide === {{ $index }}"
             x-transition:enter="transition ease-out duration-1000"
-            x-transition:enter-start="opacity-0 scale-95"
-            x-transition:enter-end="opacity-100 scale-100"
+            x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100"
             x-transition:leave="transition ease-in duration-700"
-            x-transition:leave-start="opacity-100 scale-100"
-            x-transition:leave-end="opacity-0 scale-95"
+            x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0"
             class="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat flex items-center justify-center"
             style="background-image: url('{{ $imageUrl }}');">
 
-            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
+            <div class="absolute inset-0 bg-black/60"></div>
 
             <div class="relative z-10 text-center px-4 max-w-2xl mx-auto">
                 <h1 class="text-4xl md:text-5xl font-extrabold text-white drop-shadow-lg mb-4">
@@ -37,6 +39,15 @@
                 </p>
             </div>
         </div>
+
+    @empty
+        <div class="relative w-full overflow-hidden h-screen flex items-center justify-center">
+            <p class="text-gray-600 text-xl">Tidak ada slider aktif yang tersedia.</p>
+        </div>
+    @endforelse
+
+</div>
+
 
     @empty
         <div class="relative w-full overflow-hidden h-screen flex items-center justify-center">
