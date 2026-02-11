@@ -182,7 +182,7 @@
 </head>
 
 <body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors">
-    <heade
+    <header
         class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 h-16 w-full flex items-center px-4 sm:px-6 lg:px-8 fixed top-0 inset-x-0 z-40">
         <div class="flex justify-between w-full">
             <div class="flex items-center space-x-2">
@@ -253,7 +253,7 @@
                 </x-dropdown>
             </div>
         </div>
-    </heade>
+    </header>
     <div class="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden" x-show="$store.ui.sidebarOpen"
         @click="$store.ui.closeSidebar()" x-transition.opacity></div>
     <aside :class="{ '-translate-x-full': !$store.ui.sidebarOpen }"
