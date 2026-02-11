@@ -38,17 +38,6 @@
             <p class="text-gray-600 text-xl">Tidak ada slider aktif yang tersedia.</p>
         </div>
     @endif
-
-</div>
-
-
-
-    @empty
-        <div class="relative w-full overflow-hidden h-screen flex items-center justify-center">
-            <p class="text-gray-600 text-xl">Tidak ada slider aktif yang tersedia.</p>
-        </div>
-    @endforelse
-
 </div>
 
 
@@ -67,15 +56,19 @@
 
         {{-- Tombol Navigasi --}}
         @if ($sliders->count() > 1)
-            <button @click="activeSlide = (activeSlide - 1 + slides.length) % slides.length"
-                class="absolute left-4 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white p-3 rounded-full z-10 hidden md:block">
-                ❮
-            </button>
-            <button @click="activeSlide = (activeSlide + 1) % slides.length"
-                class="absolute right-4 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white p-3 rounded-full z-10 hidden md:block">
-                ❯
-            </button>
-        @endif
+    <button 
+        @click="activeSlide = (activeSlide - 1 + {{ $sliders->count() }}) % {{ $sliders->count() }}"
+        class="absolute left-4 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white p-3 rounded-full z-10 hidden md:block">
+        ❮
+    </button>
+
+    <button 
+        @click="activeSlide = (activeSlide + 1) % {{ $sliders->count() }}"
+        class="absolute right-4 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white p-3 rounded-full z-10 hidden md:block">
+        ❯
+    </button>
+@endif
+
     </div>
     <section class="py-16 bg-white dark:bg-gray-900">
         <div class="max-w-5xl mx-auto px-6 text-center">
