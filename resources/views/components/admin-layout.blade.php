@@ -29,7 +29,7 @@
     @endif
     @livewireStyles
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <script src="https://cdn.tiny.cloud/1/algt269vr4aq8vf2pokvkxyplcwaofury8xlyeekzrg85v42/tinymce/6/tinymce.min.js"
+    <script src="https://cdn.tiny.cloud/1/48910vmaqfg2ldy4prh0itb5g6oqqoct48gip7tmhz7vnvmn/tinymce/6/tinymce.min.js"
         referrerpolicy="origin"></script>
     <script>
         function initializeTinyMCE(selector) {
