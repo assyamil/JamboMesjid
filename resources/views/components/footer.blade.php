@@ -132,26 +132,7 @@
         <p>&copy; {{ date('Y') }} {!! strip_tags($villageName->content) ?? 'Nama Desa' !!}. Hak Cipta Dilindungi.</p>
         <p class="mt-1 italic">
             Versi {{ config('app.version', '1.0.0') }} |
-            Dibuat oleh
-            <span class="text-primary font-medium">
-                <a href="https://www.facebook.com/share/1BGG9pfRwU/?mibextid=qi2Omg" target="_blank"
-                    rel="noopener noreferrer">
-                    NanuTech Solution
-                </a>
-            </span>
         </p>
-        <p class="mt-1">
-            Ingin website desa seperti ini? Hubungi via
-            <a href="https://wa.me/+6287750124895" class="underline text-primary hover:text-primary-dark transition"
-                target="_blank">
-                WhatsApp
-            </a>
-            atau kunjungi
-            <a href="https://facebook.com/nanu.ranusate"
-                class="underline text-primary hover:text-primary-dark transition" target="_blank">
-                Facebook NanuTect Solution
-            </a>
-        </p>
-    </div>
+        
     </div>
 </footer>
